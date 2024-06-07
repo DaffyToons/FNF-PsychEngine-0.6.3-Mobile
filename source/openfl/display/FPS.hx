@@ -44,7 +44,7 @@ class FPS extends TextField
 		The current frame rate, expressed using frames-per-second
 	**/
 	public var currentFPS(default, null):Int;
-	@:noCompletion private final os:String = (LimeSystem.platformName == LimeSystem.platformVersion || LimeSystem.platformVersion == null) ? '\nOS: ${LimeSystem.platformName}' #if cpp + ' ${getArch()}' #end : '\nOS: ${LimeSystem.platformName}' #if cpp + ' ${getArch()}' #end + ' - ${LimeSystem.platformVersion}';
+	@:noCompletion private final os:String;
 
 	@:noCompletion private var cacheCount:Int;
 	@:noCompletion private var currentTime:Float;
@@ -53,6 +53,11 @@ class FPS extends TextField
 	public function new(x:Float = 10, y:Float = 10, color:Int = 0x000000)
 	{
 		super();
+
+		if (LimeSystem.platformName == LimeSystem.platformVersion || LimeSystem.platformVersion == null)
+			os = '\nOS: ${LimeSystem.platformName}' #if cpp + ' ${getArch()}' #end;
+		else
+			os = '\nOS: ${LimeSystem.platformName}' #if cpp + ' ${getArch()}' #end + ' - ${LimeSystem.platformVersion}';
 
 		this.x = x;
 		this.y = y;
