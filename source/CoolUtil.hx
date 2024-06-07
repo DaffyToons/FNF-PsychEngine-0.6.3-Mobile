@@ -138,4 +138,8 @@ class CoolUtil
 		FlxG.openURL(site);
 		#end
 	}
+
+	public static function last<T>(array:Array<T>):T {
+		return array[array.length - 1];
+	}
 }

@@ -1,0 +1,63 @@
+{
+  "dependencies": [
+    {
+      "name": "discord_rpc",
+      "type": "git",
+      "ref": "master",
+      "url": "https://github.com/Aidan63/linc_discord-rpc"
+    },
+    {
+      "name": "extension-androidtools",
+      "type": "haxelib",
+      "version": "2.0.3"
+    },
+    {
+      "name": "flixel",
+      "type": "haxelib",
+      "version": "4.11.0"
+    },
+    {
+      "name": "flixel-addons",
+      "type": "haxelib",
+      "version": "2.11.0"
+    },
+    {
+      "name": "flixel-ui",
+      "type": "haxelib",
+      "version": "2.3.3"
+    },
+    {
+      "name": "hscript",
+      "type": "haxelib",
+      "version": "2.4.0"
+    },
+    {
+      "name": "hxCodec",
+      "type": "haxelib",
+      "version": "2.6.0"
+    },
+    {
+      "name": "hxcpp",
+      "type": "git",
+      "ref": "main",
+      "url": "https://github.com/VerySecretOrg/hxcpp.git"
+    },
+    {
+      "name": "lime",
+      "type": "git",
+      "ref": "main",
+      "url": "https://github.com/VerySecretOrg/lime.git"
+    },
+    {
+      "name": "linc_luajit",
+      "type": "git",
+      "ref": "main",
+      "url": "https://github.com/VerySecretOrg/linc_luajit.git"
+    },
+    {
+      "name": "openfl",
+      "type": "haxelib",
+      "version": "9.1.0"
+    }
+  ]
+}

@@ -1,3 +1,5 @@
+.haxelib
+
 ### FNF-Specific
 # File used for the NG API. Should not be shared with others.
 APIStuff.hx
