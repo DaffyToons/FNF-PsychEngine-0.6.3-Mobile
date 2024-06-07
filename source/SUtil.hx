@@ -1,6 +1,12 @@
 package;
 
 import lime.system.System as LimeSystem;
+#if android
+import android.content.Context as AndroidContext;
+import android.os.Environment as AndroidEnvironment;
+import android.Permissions as AndroidPermissions;
+import android.Settings as AndroidSettings;
+#end
 #if sys
 import sys.FileSystem;
 import sys.io.File;
@@ -20,7 +26,7 @@ class SUtil
 		var daPath:String = '';
 		#if android
 		if (!FileSystem.exists(LimeSystem.applicationStorageDirectory + 'storagetype.txt'))
-			File.saveContent(LimeSystem.applicationStorageDirectory + 'storagetype.txt', ClientPrefs.data.storageType);
+			File.saveContent(LimeSystem.applicationStorageDirectory + 'storagetype.txt', ClientPrefs.storageType);
 		var curStorageType:String = File.getContent(LimeSystem.applicationStorageDirectory + 'storagetype.txt');
 		daPath = force ? StorageType.fromStrForce(curStorageType) : StorageType.fromStr(curStorageType);
 		daPath = haxe.io.Path.addTrailingSlash(daPath);
@@ -105,7 +111,7 @@ class SUtil
 	}
 
 	public static function checkExternalPaths(?splitStorage = false):Array<String> {
-		var process = new Process('grep -o "/storage/....-...." /proc/mounts | paste -sd \',\'');
+		var process = new sys.io.Process('grep -o "/storage/....-...." /proc/mounts | paste -sd \',\'');
 		var paths:String = process.stdout.readAll().toString();
 		if (splitStorage) paths = paths.replace('/storage/', '');
 		return paths.split(',');
