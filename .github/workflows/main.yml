@@ -41,6 +41,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@main
+        with:
+          persist-credentials: false
+
+      - name: Configure git
+        run: |
+          git config --global url."https://${TOKEN}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
+          git config --global user.name "mcagabe19"
+          git config --global user.email "egzozu.be.bas@gmail.com"
+        env:
+          TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Setup Haxe
         uses: krdlab/setup-haxe@master
@@ -70,6 +80,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@main
+        with:
+          persist-credentials: false
+
+      - name: Configure git
+        run: |
+          git config --global url."https://${TOKEN}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
+          git config --global user.name "mcagabe19"
+          git config --global user.email "egzozu.be.bas@gmail.com"
+        env:
+          TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Setup Haxe
         uses: krdlab/setup-haxe@master
@@ -95,6 +115,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@main
+        with:
+          persist-credentials: false
+
+      - name: Configure git
+        run: |
+          git config --global url."https://${TOKEN}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
+          git config --global user.name "mcagabe19"
+          git config --global user.email "egzozu.be.bas@gmail.com"
+        env:
+          TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Setup Java JDK
         uses: actions/setup-java@main
@@ -133,6 +163,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@main
+        with:
+          persist-credentials: false
+
+      - name: Configure git
+        run: |
+          git config --global url."https://${TOKEN}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
+          git config --global user.name "mcagabe19"
+          git config --global user.email "egzozu.be.bas@gmail.com"
+        env:
+          TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Setup Haxe
         uses: krdlab/setup-haxe@master
