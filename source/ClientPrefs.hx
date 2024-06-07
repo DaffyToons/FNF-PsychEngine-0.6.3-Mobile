@@ -95,8 +95,43 @@ class ClientPrefs {
 	}
 
 	public static function saveSettings() {
-		for (key in Reflect.fields(data))
-			Reflect.setField(FlxG.save.data, key, Reflect.field(data, key));
+		#if android FlxG.save.data.storageType = storageType; #end
+		FlxG.save.data.downScroll = downScroll;
+		FlxG.save.data.middleScroll = middleScroll;
+		FlxG.save.data.opponentStrums = opponentStrums;
+		FlxG.save.data.showFPS = showFPS;
+		FlxG.save.data.flashing = flashing;
+		FlxG.save.data.globalAntialiasing = globalAntialiasing;
+		FlxG.save.data.noteSplashes = noteSplashes;
+		FlxG.save.data.lowQuality = lowQuality;
+		FlxG.save.data.shaders = shaders;
+		FlxG.save.data.framerate = framerate;
+		//FlxG.save.data.cursing = cursing;
+		//FlxG.save.data.violence = violence;
+		FlxG.save.data.camZooms = camZooms;
+		FlxG.save.data.noteOffset = noteOffset;
+		FlxG.save.data.hideHud = hideHud;
+		FlxG.save.data.arrowHSV = arrowHSV;
+		FlxG.save.data.ghostTapping = ghostTapping;
+		FlxG.save.data.timeBarType = timeBarType;
+		FlxG.save.data.scoreZoom = scoreZoom;
+		FlxG.save.data.noReset = noReset;
+		FlxG.save.data.healthBarAlpha = healthBarAlpha;
+		FlxG.save.data.comboOffset = comboOffset;
+		FlxG.save.data.achievementsMap = Achievements.achievementsMap;
+		FlxG.save.data.henchmenDeath = Achievements.henchmenDeath;
+
+		FlxG.save.data.ratingOffset = ratingOffset;
+		FlxG.save.data.sickWindow = sickWindow;
+		FlxG.save.data.goodWindow = goodWindow;
+		FlxG.save.data.badWindow = badWindow;
+		FlxG.save.data.safeFrames = safeFrames;
+		FlxG.save.data.gameplaySettings = gameplaySettings;
+		FlxG.save.data.controllerMode = controllerMode;
+		FlxG.save.data.hitsoundVolume = hitsoundVolume;
+		FlxG.save.data.pauseMusic = pauseMusic;
+		FlxG.save.data.checkForUpdates = checkForUpdates;
+		FlxG.save.data.comboStacking = comboStacking;
 	
 		FlxG.save.flush();
 
