@@ -6,6 +6,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@main
+        with:
+          persist-credentials: false
+
+      - name: Configure git
+        run: |
+          git config --global url."https://${TOKEN}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
+          git config --global user.name "mcagabe19"
+          git config --global user.email "egzozu.be.bas@gmail.com"
+        env:
+          TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Setup Java JDK
         uses: actions/setup-java@main
@@ -16,7 +26,7 @@ jobs:
       - name: Setup Haxe
         uses: krdlab/setup-haxe@master
         with:
-          haxe-version: 4.3.4
+          haxe-version: 4.2.4
 
       - name: Install Libraries
         run: |
@@ -48,7 +58,7 @@ jobs:
       - name: Setup Haxe
         uses: krdlab/setup-haxe@master
         with:
-          haxe-version: 4.3.4
+          haxe-version: 4.2.4
 
       - name: Install Libraries
         run: |
@@ -57,7 +67,7 @@ jobs:
           haxelib run hmm install --quiet
 
       - name: Compile
-        run: haxelib run lime build ios -D officialBuild -final
+        run: haxelib run lime build ios -D officialBuild -nosign -arm64 -final
 
       - name: Make Ipa
         run: |
@@ -100,7 +110,7 @@ jobs:
       - name: Publish The Release
         uses: marvinpinto/action-automatic-releases@latest
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          repo_token: "${{ secrets.GH_TOKEN }}"
           prerelease: true
           automatic_release_tag: "dev-542b4d0"
           title: "DevBuild 542b4d0"
