@@ -192,18 +192,8 @@
 			<!-- Do whatever you want I'm tired uninstall and install everytime -->
 			<certificate path="key.keystore" password="psychengine" alias="psychport" alias-password="psychengine" unless="debug" />
 
-			<!--Target SDK-->
-			<android target-sdk-version="31" />
-
 			<config:android permission="android.permission.MANAGE_EXTERNAL_STORAGE" />
 			<config:android permission="android.permission.REQUEST_INSTALL_PACKAGES" />
-
-			<!-- Fix Networking -->
-			<config:android permission="android.permission.INTERNET" />
-			<config:android permission="android.permission.ACCESS_NETWORK_STATE" />
-
-			<!--Gradle-->
-			<!--<config:android gradle-version="7.4.2" gradle-plugin="7.3.1" />-->
 	</section>
 
 	<!--<section if="ios">
