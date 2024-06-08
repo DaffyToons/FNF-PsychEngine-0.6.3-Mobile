@@ -69,7 +69,7 @@ class CrashHandler
 			if (!FileSystem.exists('crash'))
 				FileSystem.createDirectory('crash');
 
-			File.saveContent('crash/' + Date.now().toString().replace(' ', '-').replace(':', "'") + '.txt', '$m\n$stackLabel');
+			File.saveContent('logs/' + 'Crash ' + Date.now().toString().replace(' ', '-').replace(':', "'") + '.txt', '$m\n$stackLabel');
 		}
 		catch (e:haxe.Exception)
 			trace('Couldn\'t save error message. (${e.message})');
