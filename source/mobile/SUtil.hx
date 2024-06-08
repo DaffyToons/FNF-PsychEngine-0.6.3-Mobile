@@ -131,7 +131,7 @@ class SUtil
 	{
 		try
 		{
-			lime.app.Application.current.window.alert(message, title);
+			flixel.FlxG.stage.window.alert(message, title);
 		}
 		catch (e:Dynamic)
 			trace('$title - $message');

@@ -120,14 +120,14 @@ class Shader
 				if (!sys.FileSystem.exists('logs'))
 					sys.FileSystem.createDirectory('logs');
 
-				sys.io.File.saveContent('logs/' + 'ShaderCompileError.txt', '$message');
+				sys.io.File.saveContent('logs/' + 'ShaderCompileTrace.txt', '$message');
 			}
 			catch (e:haxe.Exception)
 				Log.warn('Couldn\'t save error message. (${e.message})', null);
 			#end
 
 			if (compileStatus == 0)
-				openfl.Lib.application.window.alert('$startMessage\n$shaderInfoLog', 'Shader Compile Error!');
+				openfl.Lib.application.window.alert('$startMessage\n$shaderInfoLog', 'Shader Compile Trace');
 			else if (hasInfoLog)
 				Log.debug('Shader Compile Info - ' + message);
 		}
