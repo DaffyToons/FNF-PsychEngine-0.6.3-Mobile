@@ -1,4 +1,4 @@
-package;
+package mobile;
 
 import lime.system.System as LimeSystem;
 #if android
