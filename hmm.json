@@ -47,7 +47,7 @@
       "name": "lime",
       "type": "git",
       "ref": "main",
-      "url": "https://github.com/PsychPorting/lime-0.6.3.git"
+      "url": "https://github.com/mcagabe19-stuff/lime.git"
     },
     {
       "name": "linc_luajit",
