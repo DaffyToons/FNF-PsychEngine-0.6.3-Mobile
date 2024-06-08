@@ -3,9 +3,6 @@ on: workflow_dispatch
 jobs:
   Windows:
     runs-on: windows-latest
-    defaults:
-      run:
-        shell: cmd
     steps:
       - name: Checkout
         uses: actions/checkout@main
@@ -14,7 +11,7 @@ jobs:
 
       - name: Configure git
         run: |
-          git config --global url."https://${TOKEN}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
+          git config --global url."https://$Env:TOKEN:x-oauth-basic@github.com/".insteadOf "https://github.com/"
           git config --global user.name "mcagabe19"
           git config --global user.email "egzozu.be.bas@gmail.com"
         env:
