@@ -106,10 +106,10 @@ jobs:
       - name: Publish The Release
         uses: marvinpinto/action-automatic-releases@latest
         with:
-          repo_token: "${{ secrets.GH_TOKEN }}"
-          prerelease: true
-          automatic_release_tag: "dev-542b4d0"
-          title: "DevBuild 542b4d0"
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          automatic_release_tag: "0.6.3"
+          title: "0.6.3"
           files: |
             /home/runner/*.apk
             /home/runner/*.zip
