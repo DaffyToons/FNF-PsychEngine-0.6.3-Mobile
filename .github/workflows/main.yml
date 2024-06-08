@@ -3,6 +3,9 @@ on: workflow_dispatch
 jobs:
   Windows:
     runs-on: windows-latest
+    defaults:
+      run:
+        shell: cmd
     steps:
       - name: Checkout
         uses: actions/checkout@main
