@@ -40,8 +40,8 @@
     {
       "name": "hxcpp",
       "type": "git",
-      "ref": "master",
-      "url": "https://github.com/mcagabe19-stuff/hxcpp.git"
+      "ref": "main",
+      "url": "https://github.com/PsychPorting/hxcpp-0.6.3.git"
     },
     {
       "name": "lime",

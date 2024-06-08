@@ -331,21 +331,24 @@ class Shader
 			message += (type == gl.VERTEX_SHADER) ? " compiling vertex shader" : " compiling fragment shader";
 			message += "\n" + shaderInfoLog;
 			message += "\n" + source;
-            #if sys
-            if (compileStatus == 0) {
-			try
+			#if sys
+			if (compileStatus == 0)
 			{
-				if (!sys.FileSystem.exists('logs'))
-					sys.FileSystem.createDirectory('logs');
+				try
+				{
+					if (!sys.FileSystem.exists('logs'))
+						sys.FileSystem.createDirectory('logs');
 
-				sys.io.File.saveContent('logs/' + 'ShaderCompileError.txt', '$message');
+					sys.io.File.saveContent('logs/' + 'ShaderCompileError.txt', '$message');
+				}
+				catch (e:haxe.Exception)
+					Log.warn('Couldn\'t save error message. (${e.message})', null);
 			}
-			catch (e:haxe.Exception)
-				Log.warn('Couldn\'t save error message. (${e.message})', null);
-        }
 			#end
-			if (compileStatus == 0) openfl.Lib.application.window.alert('$message', 'Shader Compile Error!');
-			else if (hasInfoLog) Log.debug(message);
+			if (compileStatus == 0)
+				#if !ios openfl.Lib.application.window.alert('$message', 'Shader Compile Error!') #else Log.error(message) #end;
+			else if (hasInfoLog)
+				Log.debug(message);
 		}
 
 		return shader;
@@ -402,7 +405,8 @@ class Shader
 		{
 			input.__disableGL(__context, textureCount);
 			textureCount++;
-			if (textureCount == gl.MAX_TEXTURE_IMAGE_UNITS) break;
+			if (textureCount == gl.MAX_TEXTURE_IMAGE_UNITS)
+				break;
 		}
 
 		for (parameter in __paramBool)
@@ -623,7 +627,8 @@ class Shader
 				}
 
 				Reflect.setField(__data, name, input);
-				if (__isGenerated) Reflect.setField(this, name, input);
+				if (__isGenerated)
+					Reflect.setField(this, name, input);
 			}
 			else if (!Reflect.hasField(__data, name) || Reflect.field(__data, name) == null)
 			{
@@ -689,7 +694,8 @@ class Shader
 						}
 
 						Reflect.setField(__data, name, parameter);
-						if (__isGenerated) Reflect.setField(this, name, parameter);
+						if (__isGenerated)
+							Reflect.setField(this, name, parameter);
 
 					case INT, INT2, INT3, INT4:
 						var parameter = new ShaderParameter<Int>();
@@ -701,7 +707,8 @@ class Shader
 						parameter.__length = length;
 						__paramInt.push(parameter);
 						Reflect.setField(__data, name, parameter);
-						if (__isGenerated) Reflect.setField(this, name, parameter);
+						if (__isGenerated)
+							Reflect.setField(this, name, parameter);
 
 					default:
 						var parameter = new ShaderParameter<Float>();
@@ -709,7 +716,8 @@ class Shader
 						parameter.type = parameterType;
 						parameter.__arrayLength = arrayLength;
 						#if lime
-						if (arrayLength > 0) parameter.__uniformMatrix = new Float32Array(arrayLength * arrayLength);
+						if (arrayLength > 0)
+							parameter.__uniformMatrix = new Float32Array(arrayLength * arrayLength);
 						#end
 						parameter.__isFloat = true;
 						parameter.__isUniform = isUniform;
@@ -732,7 +740,8 @@ class Shader
 						}
 
 						Reflect.setField(__data, name, parameter);
-						if (__isGenerated) Reflect.setField(this, name, parameter);
+						if (__isGenerated)
+							Reflect.setField(this, name, parameter);
 				}
 			}
 
