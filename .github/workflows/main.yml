@@ -65,8 +65,6 @@ jobs:
           DEBIAN_FRONTEND=noninteractive sudo apt-get -qq install -o Dpkg::Progress-Fancy="0" -o APT::Color="0" -o Dpkg::Use-Pty="0" libvlc-dev libvlccore-dev < /dev/null > /dev/null
           haxelib install hmm --quiet
           haxelib run hmm install --quiet
-          haxelib remove hxCodec
-          haxelib install hxCodec --quiet
 
       - name: Compile
         run: haxelib run lime build linux
