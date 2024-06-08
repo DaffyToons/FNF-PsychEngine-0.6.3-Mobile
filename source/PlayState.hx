@@ -2275,7 +2275,7 @@ class PlayState extends MusicBeatState
 				daNote.visible = false;
 				daNote.ignoreNote = true;
 
-				daNote.kill();
+				//daNote.kill();
 				unspawnNotes.remove(daNote);
 				daNote.destroy();
 			}
@@ -2291,7 +2291,7 @@ class PlayState extends MusicBeatState
 				daNote.visible = false;
 				daNote.ignoreNote = true;
 
-				daNote.kill();
+				//daNote.kill();
 				notes.remove(daNote, true);
 				daNote.destroy();
 			}
@@ -2908,7 +2908,7 @@ class PlayState extends MusicBeatState
 						var particle = phillyGlowParticles.members[i];
 						if(particle.alpha < 0)
 						{
-							particle.kill();
+							//particle.kill();
 							phillyGlowParticles.remove(particle, true);
 							particle.destroy();
 						}
@@ -2919,7 +2919,7 @@ class PlayState extends MusicBeatState
 				if(!ClientPrefs.lowQuality) {
 					grpLimoParticles.forEach(function(spr:BGSprite) {
 						if(spr.animation.curAnim.finished) {
-							spr.kill();
+							//spr.kill();
 							grpLimoParticles.remove(spr, true);
 							spr.destroy();
 						}
@@ -3288,7 +3288,7 @@ class PlayState extends MusicBeatState
 						daNote.active = false;
 						daNote.visible = false;
 
-						daNote.kill();
+						//daNote.kill();
 						notes.remove(daNote, true);
 						daNote.destroy();
 					}
@@ -4070,7 +4070,7 @@ class PlayState extends MusicBeatState
 			daNote.active = false;
 			daNote.visible = false;
 
-			daNote.kill();
+			//daNote.kill();
 			notes.remove(daNote, true);
 			daNote.destroy();
 		}
@@ -4222,14 +4222,14 @@ class PlayState extends MusicBeatState
 		}
 		if (!ClientPrefs.comboStacking)
 		{
-			if (lastCombo != null) lastCombo.kill();
+			//if (lastCombo != null) lastCombo.kill();
 			lastCombo = comboSpr;
 		}
 		if (lastScore != null)
 		{
 			while (lastScore.length > 0)
 			{
-				lastScore[0].kill();
+				//lastScore[0].kill();
 				lastScore.remove(lastScore[0]);
 			}
 		}
@@ -4345,7 +4345,7 @@ class PlayState extends MusicBeatState
 					{
 						for (doubleNote in pressNotes) {
 							if (Math.abs(doubleNote.strumTime - epicNote.strumTime) < 1) {
-								doubleNote.kill();
+								//doubleNote.kill();
 								notes.remove(doubleNote, true);
 								doubleNote.destroy();
 							} else
@@ -4511,7 +4511,7 @@ class PlayState extends MusicBeatState
 		//Dupe note remove
 		notes.forEachAlive(function(note:Note) {
 			if (daNote != note && daNote.mustPress && daNote.noteData == note.noteData && daNote.isSustainNote == note.isSustainNote && Math.abs(daNote.strumTime - note.strumTime) < 1) {
-				note.kill();
+				//note.kill();
 				notes.remove(note, true);
 				note.destroy();
 			}
@@ -4640,7 +4640,7 @@ class PlayState extends MusicBeatState
 
 		if (!note.isSustainNote)
 		{
-			note.kill();
+			//note.kill();
 			notes.remove(note, true);
 			note.destroy();
 		}
@@ -4677,7 +4677,7 @@ class PlayState extends MusicBeatState
 				note.wasGoodHit = true;
 				if (!note.isSustainNote)
 				{
-					note.kill();
+					//note.kill();
 					notes.remove(note, true);
 					note.destroy();
 				}
@@ -4747,7 +4747,7 @@ class PlayState extends MusicBeatState
 
 			if (!note.isSustainNote)
 			{
-				note.kill();
+				//note.kill();
 				notes.remove(note, true);
 				note.destroy();
 			}
