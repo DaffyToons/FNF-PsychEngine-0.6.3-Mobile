@@ -327,8 +327,8 @@ class Shader
 
 		if (hasInfoLog || compileStatus == 0)
 		{
-			var message = (compileStatus == 0) ? "Error" : "Info";
-			message += (type == gl.VERTEX_SHADER) ? " compiling vertex shader" : " compiling fragment shader";
+			final startMessage = '${(compileStatus == 0) ? "Error" : "Info" } ${(type == gl.VERTEX_SHADER) ? "compiling vertex shader" : "compiling fragment shader"}';
+			var message = startMessage;
 			message += "\n" + shaderInfoLog;
 			message += "\n" + source;
 			#if sys
@@ -346,7 +346,7 @@ class Shader
 			}
 			#end
 			if (compileStatus == 0)
-				#if !ios openfl.Lib.application.window.alert('$message', 'Shader Compile Error!') #else Log.error(message) #end;
+				#if !ios openfl.Lib.application.window.alert('$startMessage\n$shaderInfoLog', 'Shader Compile Error!') #else Log.error(message) #end;
 			else if (hasInfoLog)
 				Log.debug(message);
 		}
