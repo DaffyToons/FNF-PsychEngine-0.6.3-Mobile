@@ -36,7 +36,8 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		option.decimals = 1;
 		option.onChange = () ->
 		{
-			this.virtualPad.alpha = curOption.getValue();
+			virtualPad.alpha = 0; // what? that fixed somehow
+			virtualPad.alpha = curOption.getValue();
 			if (MobileControls.enabled) {
 				FlxG.sound.volumeUpKeys = [];
 				FlxG.sound.volumeDownKeys = [];
