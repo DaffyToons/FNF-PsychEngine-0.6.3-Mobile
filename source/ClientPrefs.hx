@@ -13,6 +13,8 @@ class ClientPrefs {
 	public static var storageType:String = "EXTERNAL_DATA";
 	#end
 	#end
+	public static var mobileCAlpha:Float = FlxG.onMobile ? 0.6 : 0;
+	public static var hitboxType:String = "No Gradient";
 	public static var downScroll:Bool = false;
 	public static var middleScroll:Bool = false;
 	public static var opponentStrums:Bool = true;
@@ -34,7 +36,7 @@ class ClientPrefs {
 	public static var scoreZoom:Bool = true;
 	public static var noReset:Bool = false;
 	public static var healthBarAlpha:Float = 1;
-	public static var controllerMode:Bool = false;
+	public static var controllerMode:Bool = mobile.MobileControls.enabled;
 	public static var hitsoundVolume:Float = 0;
 	public static var pauseMusic:String = 'Tea Time';
 	public static var checkForUpdates:Bool = true;
@@ -106,6 +108,7 @@ class ClientPrefs {
 		FlxG.save.data.storageType = storageType;
 		#end
 		#end
+		FlxG.save.data.mobileCAlpha = mobileCAlpha;
 		FlxG.save.data.downScroll = downScroll;
 		FlxG.save.data.middleScroll = middleScroll;
 		FlxG.save.data.opponentStrums = opponentStrums;
@@ -229,7 +232,6 @@ class ClientPrefs {
 		if(FlxG.save.data.comboOffset != null) {
 			comboOffset = FlxG.save.data.comboOffset;
 		}
-		
 		if(FlxG.save.data.ratingOffset != null) {
 			ratingOffset = FlxG.save.data.ratingOffset;
 		}
@@ -264,6 +266,9 @@ class ClientPrefs {
 		}
 		#end
 		#end
+		if(FlxG.save.data.mobileCAlpha != null) {
+			mobileCAlpha = FlxG.save.data.mobileCAlpha;
+		}
 		if(FlxG.save.data.gameplaySettings != null)
 		{
 			var savedMap:Map<String, Dynamic> = FlxG.save.data.gameplaySettings;

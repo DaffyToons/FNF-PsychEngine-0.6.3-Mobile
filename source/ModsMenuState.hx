@@ -377,6 +377,8 @@ class ModsMenuState extends MusicBeatState
 
 		FlxG.mouse.visible = true;
 
+		addVirtualPad(!noModsTxt.visible ? UP_DOWN : NONE, B);
+
 		super.create();
 	}
 

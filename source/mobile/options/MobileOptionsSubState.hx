@@ -6,6 +6,8 @@ import options.Option;
 import sys.io.File;
 #end
 import mobile.SUtil;
+import flixel.FlxG;
+import flixel.input.keyboard.FlxKey;
 
 class MobileOptionsSubState extends BaseOptionsMenu
 {
@@ -14,12 +16,38 @@ class MobileOptionsSubState extends BaseOptionsMenu
 	var externalPaths:Array<String> = SUtil.checkExternalPaths(true);
 	final lastStorageType:String = ClientPrefs.storageType;
 	#end
+	final hintOptions:Array<String> = ["No Gradient", "No Gradient (Old)", "Gradient", "Hidden"];
 
 	public function new()
 	{
 		#if android if (externalPaths != null && externalPaths.length > 0 || externalPaths[0] != '') storageTypes = storageTypes.concat(externalPaths); #end
 		title = 'Mobile Options';
 		rpcTitle = 'Mobile Options Menu'; // for Discord Rich Presence, fuck it
+
+		var option:Option = new Option('Mobile Controls Opacity',
+		'Selects the opacity for the mobile buttons (carefull not to put it at 0 and loose track of your buttons).',
+		'mobileCAlpha',
+		'percent',
+		null);
+		option.scrollSpeed = 1;
+		option.minValue = 0.001;
+		option.maxValue = 1;
+		option.changeValue = 0.1;
+		option.decimals = 1;
+		option.onChange = () ->
+		{
+			virtualPad.alpha = curOption.getValue();
+			if (MobileControls.enabled) {
+				FlxG.sound.volumeUpKeys = [];
+				FlxG.sound.volumeDownKeys = [];
+				FlxG.sound.muteKeys = [];
+			} else {
+				FlxG.sound.volumeUpKeys = [FlxKey.PLUS, FlxKey.NUMPADPLUS];
+				FlxG.sound.volumeDownKeys = [FlxKey.MINUS, FlxKey.NUMPADMINUS];
+				FlxG.sound.muteKeys = [FlxKey.ZERO, FlxKey.NUMPADZERO];
+			}
+		};
+		addOption(option);
 
 		#if mobile
 		var option:Option = new Option('Allow Phone Screensaver',
@@ -30,6 +58,17 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		option.onChange = () -> lime.system.System.allowScreenTimeout = curOption.getValue();
 		addOption(option);
 		#end
+
+		if (MobileControls.mode == "Hitbox")
+		{
+			var option:Option = new Option('Hitbox Design',
+			'Choose how your hitbox should look like.',
+			'hitboxType',
+			'string',
+			null,
+			hintOptions);
+			addOption(option);
+		}
 
 		#if android
 		var option:Option = new Option('Storage Type',

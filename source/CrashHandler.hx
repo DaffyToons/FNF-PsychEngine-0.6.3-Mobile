@@ -66,8 +66,8 @@ class CrashHandler
 		#if sys
 		try
 		{
-			if (!FileSystem.exists('crash'))
-				FileSystem.createDirectory('crash');
+			if (!FileSystem.exists('logs'))
+				FileSystem.createDirectory('logs');
 
 			File.saveContent('logs/' + 'Crash ' + Date.now().toString().replace(' ', '-').replace(':', "'") + '.txt', '$m\n$stackLabel');
 		}
