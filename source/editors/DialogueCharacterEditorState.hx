@@ -41,14 +41,22 @@ class DialogueCharacterEditorState extends MusicBeatState
 	var box:FlxSprite;
 	var daText:TypedAlphabet = null;
 
-	private static var TIP_TEXT_MAIN:String =
+	private static var TIP_TEXT_MAIN:String = (mobile.MobileControls.enabled) ?
+	'\nX - Reset Camera
+	\nY - Toggle Speech Bubble
+	\nA - Reset text' :
 	'JKLI - Move camera (Hold Shift to move 4x faster)
 	\nQ/E - Zoom out/in
 	\nR - Reset Camera
 	\nH - Toggle Speech Bubble
 	\nSpace - Reset text';
 
-	private static var TIP_TEXT_OFFSET:String =
+	private static var TIP_TEXT_OFFSET:String = (mobile.MobileControls.enabled) ?
+	'\nX - Reset Camera
+	\nY - Toggle Ghosts
+	\nTop Arrow Keys - Move Looping animation offset (Red)
+	\nBottom Arrow Keys - Move Idle/Finished animation offset (Blue)
+	\nHold Z to move offsets 10x faster' :
 	'JKLI - Move camera (Hold Shift to move 4x faster)
 	\nQ/E - Zoom out/in
 	\nR - Reset Camera
@@ -161,6 +169,9 @@ class DialogueCharacterEditorState extends MusicBeatState
 		addEditorBox();
 		FlxG.mouse.visible = true;
 		updateCharTypeBox();
+
+		addVirtualPad(DIALOGUE_PORTRAIT_EDITOR, DIALOGUE_PORTRAIT_EDITOR);
+		addVirtualPadCamera();
 		
 		super.create();
 	}
@@ -453,8 +464,11 @@ class DialogueCharacterEditorState extends MusicBeatState
 			offsetIdleText.text = 'Idle: ' + animShit.idle_offsets;
 		}
 
+		final buttonW:String = mobile.MobileControls.enabled ? 'Up' : 'W';
+		final buttonS:String = mobile.MobileControls.enabled ? 'Down' : 'S';
+
 		curAnim = 0;
-		animText.text = 'Animation: ' + character.jsonFile.animations[curAnim].anim + ' (' + (curAnim + 1) +' / ' + character.jsonFile.animations.length + ') - Press W or S to scroll';
+		animText.text = 'Animation: ' + character.jsonFile.animations[curAnim].anim + ' (' + (curAnim + 1) +' / ' + character.jsonFile.animations.length + ') - Press $buttonW or $buttonS to scroll';
 
 		#if desktop
 		// Updating Discord Rich Presence
@@ -529,7 +543,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 			FlxG.sound.muteKeys = TitleState.muteKeys;
 			FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
 			FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
-			if(FlxG.keys.justPressed.SPACE && UI_mainbox.selected_tab_id == 'Character') {
+			if(virtualPad.buttonA.justPressed || FlxG.keys.justPressed.SPACE && UI_mainbox.selected_tab_id == 'Character') {
 				character.playAnim(character.jsonFile.animations[curAnim].anim);
 				daText.resetDialogue();
 				updateTextBox();
@@ -538,7 +552,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 			//lots of Ifs lol get trolled
 			var offsetAdd:Int = 1;
 			var speed:Float = 300;
-			if(FlxG.keys.pressed.SHIFT) {
+			if(virtualPad.buttonZ.pressed || FlxG.keys.pressed.SHIFT) {
 				speed = 1200;
 				offsetAdd = 10;
 			}
@@ -558,8 +572,8 @@ class DialogueCharacterEditorState extends MusicBeatState
 			if(UI_mainbox.selected_tab_id == 'Animations' && curSelectedAnim != null && character.dialogueAnimations.exists(curSelectedAnim)) {
 				var moved:Bool = false;
 				var animShit:DialogueAnimArray = character.dialogueAnimations.get(curSelectedAnim);
-				var controlArrayLoop:Array<Bool> = [FlxG.keys.justPressed.A, FlxG.keys.justPressed.W, FlxG.keys.justPressed.D, FlxG.keys.justPressed.S];
-				var controlArrayIdle:Array<Bool> = [FlxG.keys.justPressed.LEFT, FlxG.keys.justPressed.UP, FlxG.keys.justPressed.RIGHT, FlxG.keys.justPressed.DOWN];
+				var controlArrayLoop:Array<Bool> = [FlxG.keys.justPressed.A || virtualPad.buttonLeft2.justPressed, FlxG.keys.justPressed.W || virtualPad.buttonUp2.justPressed, FlxG.keys.justPressed.D || virtualPad.buttonRight2.justPressed, FlxG.keys.justPressed.S || virtualPad.buttonDown2.justPressed];
+				var controlArrayIdle:Array<Bool> = [FlxG.keys.justPressed.LEFT || virtualPad.buttonLeft.justPressed, FlxG.keys.justPressed.UP || virtualPad.buttonUp.justPressed, FlxG.keys.justPressed.RIGHT || virtualPad.buttonRight.justPressed, FlxG.keys.justPressed.DOWN || virtualPad.buttonDown.justPressed];
 				for (i in 0...controlArrayLoop.length) {
 					if(controlArrayLoop[i]) {
 						if(i % 2 == 1) {
@@ -597,7 +611,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 				camGame.zoom += elapsed * camGame.zoom;
 				if(camGame.zoom > 1) camGame.zoom = 1;
 			}
-			if(FlxG.keys.justPressed.H) {
+			if(virtualPad.buttonY.justPressed || FlxG.keys.justPressed.H) {
 				if(UI_mainbox.selected_tab_id == 'Animations') {
 					currentGhosts++;
 					if(currentGhosts > 2) currentGhosts = 0;
@@ -610,7 +624,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 					hudGroup.visible = !hudGroup.visible;
 				}
 			}
-			if(FlxG.keys.justPressed.R) {
+			if(virtualPad.buttonX.justPressed || FlxG.keys.justPressed.R) {
 				camGame.zoom = 1;
 				mainGroup.setPosition(0, 0);
 				hudGroup.visible = true;
@@ -641,9 +655,12 @@ class DialogueCharacterEditorState extends MusicBeatState
 					
 					if(curAnim < 0) curAnim = character.jsonFile.animations.length - 1;
 					else if(curAnim >= character.jsonFile.animations.length) curAnim = 0;
+
+					final buttonW:String = mobile.MobileControls.enabled ? 'Up' : 'W';
+					final buttonS:String = mobile.MobileControls.enabled ? 'Down' : 'S';
 					
 					character.playAnim(character.jsonFile.animations[curAnim].anim);
-					animText.text = 'Animation: ' + character.jsonFile.animations[curAnim].anim + ' (' + (curAnim + 1) +' / ' + character.jsonFile.animations.length + ') - Press W or S to scroll';
+					animText.text = 'Animation: ' + character.jsonFile.animations[curAnim].anim + ' (' + (curAnim + 1) +' / ' + character.jsonFile.animations.length + ') - Press $buttonW or $buttonS to scroll';
 				}
 				lastTab = UI_mainbox.selected_tab_id;
 				currentGhosts = 0;
@@ -668,11 +685,13 @@ class DialogueCharacterEditorState extends MusicBeatState
 							}
 						}
 					}
-					animText.text = 'Animation: ' + character.jsonFile.animations[curAnim].anim + ' (' + (curAnim + 1) +' / ' + character.jsonFile.animations.length + ') - Press W or S to scroll';
+					final buttonW:String = mobile.MobileControls.enabled ? 'Up' : 'W';
+					final buttonS:String = mobile.MobileControls.enabled ? 'Down' : 'S';
+					animText.text = 'Animation: ' + character.jsonFile.animations[curAnim].anim + ' (' + (curAnim + 1) +' / ' + character.jsonFile.animations.length + ') - Press $buttonW or $buttonS to scroll';
 				}
 			}
 
-			if(FlxG.keys.justPressed.ESCAPE) {
+			if(#if android FlxG.android.justPressed.BACK || #end virtualPad.buttonB.justPressed || FlxG.keys.justPressed.ESCAPE) {
 				MusicBeatState.switchState(new editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'), 1);
 				transitioning = true;

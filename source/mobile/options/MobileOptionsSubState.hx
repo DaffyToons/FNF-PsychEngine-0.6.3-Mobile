@@ -5,7 +5,6 @@ import options.Option;
 #if sys
 import sys.io.File;
 #end
-import mobile.SUtil;
 import flixel.FlxG;
 import flixel.input.keyboard.FlxKey;
 
@@ -39,13 +38,13 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			virtualPad.alpha = 0; // what? that fixed somehow
 			virtualPad.alpha = curOption.getValue();
 			if (MobileControls.enabled) {
-				FlxG.sound.volumeUpKeys = [];
-				FlxG.sound.volumeDownKeys = [];
-				FlxG.sound.muteKeys = [];
+				TitleState.volumeUpKeys = FlxG.sound.volumeUpKeys = [];
+				TitleState.volumeDownKeys = FlxG.sound.volumeDownKeys = [];
+				TitleState.muteKeys = FlxG.sound.muteKeys = [];
 			} else {
-				FlxG.sound.volumeUpKeys = [FlxKey.PLUS, FlxKey.NUMPADPLUS];
-				FlxG.sound.volumeDownKeys = [FlxKey.MINUS, FlxKey.NUMPADMINUS];
-				FlxG.sound.muteKeys = [FlxKey.ZERO, FlxKey.NUMPADZERO];
+				TitleState.volumeUpKeys = FlxG.sound.volumeUpKeys = [FlxKey.PLUS, FlxKey.NUMPADPLUS];
+				TitleState.volumeDownKeys = FlxG.sound.volumeDownKeys = [FlxKey.MINUS, FlxKey.NUMPADMINUS];
+				TitleState.muteKeys = FlxG.sound.muteKeys = [FlxKey.ZERO, FlxKey.NUMPADZERO];
 			}
 		};
 		addOption(option);
