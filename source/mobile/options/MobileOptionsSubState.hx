@@ -30,13 +30,13 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		'percent',
 		null);
 		option.scrollSpeed = 1;
-		option.minValue = 0.001;
+		option.minValue = 0.0;
 		option.maxValue = 1;
 		option.changeValue = 0.1;
 		option.decimals = 1;
 		option.onChange = () ->
 		{
-			virtualPad.alpha = curOption.getValue();
+			this.virtualPad.alpha = curOption.getValue();
 			if (MobileControls.enabled) {
 				FlxG.sound.volumeUpKeys = [];
 				FlxG.sound.volumeDownKeys = [];

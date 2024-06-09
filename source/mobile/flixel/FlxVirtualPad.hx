@@ -194,6 +194,7 @@ class FlxVirtualPad extends FlxSpriteGroup
 		button.moves = false;
 		button.scrollFactor.set();
 		button.color = Color;
+		button.antialiasing = ClientPrefs.globalAntialiasing;
 		button.alpha = ClientPrefs.mobileCAlpha;
 		button.onDown.callback = button.onOver.callback = () -> onButtonDown.dispatch(button);
 		button.onUp.callback = button.onOut.callback = () -> onButtonUp.dispatch(button);
