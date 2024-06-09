@@ -32,6 +32,11 @@ class Main extends Sprite
 	public static function main():Void
 	{
 		Lib.current.addChild(new Main());
+		#if cpp
+		cpp.NativeGc.enable(true);
+		#elseif hl
+		hl.Gc.enable(true);
+		#end
 	}
 
 	public function new()
@@ -106,6 +111,11 @@ class Main extends Sprite
 		FlxG.mouse.visible = false;
 		#end
 
-		#if android FlxG.android.preventDefaultKeys = [BACK]; #end
+		#if mobile
+		lime.system.System.allowScreenTimeout = ClientPrefs.screensaver;
+		#if android
+		FlxG.android.preventDefaultKeys = [BACK]; 
+		#end
+		#end
 	}
 }

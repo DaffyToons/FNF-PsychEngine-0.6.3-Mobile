@@ -7,7 +7,12 @@ import flixel.graphics.FlxGraphic;
 import Controls;
 
 class ClientPrefs {
-	#if android public static var storageType:String = "EXTERNAL_DATA"; #end
+	#if mobile
+	public static var screensaver:Bool = false;
+	#if android
+	public static var storageType:String = "EXTERNAL_DATA";
+	#end
+	#end
 	public static var downScroll:Bool = false;
 	public static var middleScroll:Bool = false;
 	public static var opponentStrums:Bool = true;
@@ -95,7 +100,12 @@ class ClientPrefs {
 	}
 
 	public static function saveSettings() {
-		#if android FlxG.save.data.storageType = storageType; #end
+		#if mobile
+		FlxG.save.data.screensaver = screensaver;
+		#if android
+		FlxG.save.data.storageType = storageType;
+		#end
+		#end
 		FlxG.save.data.downScroll = downScroll;
 		FlxG.save.data.middleScroll = middleScroll;
 		FlxG.save.data.opponentStrums = opponentStrums;
@@ -244,10 +254,15 @@ class ClientPrefs {
 		if(FlxG.save.data.pauseMusic != null) {
 			pauseMusic = FlxG.save.data.pauseMusic;
 		}
+		#if mobile
+		if(FlxG.save.data.screensaver != null) {
+			screensaver = FlxG.save.data.screensaver;
+		}
 		#if android
 		if(FlxG.save.data.storageType != null) {
 			storageType = FlxG.save.data.storageType;
 		}
+		#end
 		#end
 		if(FlxG.save.data.gameplaySettings != null)
 		{
