@@ -111,6 +111,9 @@ class ClientPrefs {
 		#end
 		#end
 		FlxG.save.data.mobileCAlpha = mobileCAlpha;
+		FlxG.save.data.mobileCEx = mobileCEx;
+		FlxG.save.data.hitboxType = hitboxType;
+		FlxG.save.data.hitboxPos = hitboxPos;
 		FlxG.save.data.downScroll = downScroll;
 		FlxG.save.data.middleScroll = middleScroll;
 		FlxG.save.data.opponentStrums = opponentStrums;
@@ -270,6 +273,15 @@ class ClientPrefs {
 		#end
 		if(FlxG.save.data.mobileCAlpha != null) {
 			mobileCAlpha = FlxG.save.data.mobileCAlpha;
+		}
+		if(FlxG.save.data.mobileCEx != null) {
+			mobileCEx = FlxG.save.data.mobileCEx;
+		}
+		if(FlxG.save.data.hitboxType != null) {
+			hitboxType = FlxG.save.data.hitboxType;
+		}
+		if(FlxG.save.data.hitboxPos != null) {
+			hitboxPos = FlxG.save.data.hitboxPos;
 		}
 		if(FlxG.save.data.gameplaySettings != null)
 		{
