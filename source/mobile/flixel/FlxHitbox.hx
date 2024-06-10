@@ -4,9 +4,6 @@ import flixel.FlxG;
 import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxColor;
 import flixel.util.FlxDestroyUtil;
-import flixel.util.FlxSignal;
-import flixel.tweens.FlxTween;
-import flixel.tweens.FlxEase;
 import mobile.flixel.FlxButton;
 import openfl.display.BitmapData;
 import openfl.display.Shape;
@@ -69,7 +66,6 @@ class FlxHitbox extends FlxSpriteGroup
 	{
 		final guh2:Float = 0.00001;
 		final guh:Float = ClientPrefs.mobileCAlpha >= 0.9 ? ClientPrefs.mobileCAlpha - 0.2 : ClientPrefs.mobileCAlpha;
-		var hintTween:FlxTween = null;
 		var hint:FlxButton = new FlxButton(X, Y);
 		hint.loadGraphic(createHintGraphic(Width, Height, Color));
 		hint.solid = false;
