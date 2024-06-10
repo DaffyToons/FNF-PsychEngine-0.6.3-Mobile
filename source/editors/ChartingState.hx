@@ -1588,7 +1588,7 @@ class ChartingState extends MusicBeatState
 				&& FlxG.mouse.y < gridBG.y + (GRID_SIZE * getSectionBeats() * 4) * zoomList[curZoom])
 			{
 				dummyArrow.visible = true;
-				dummyArrow.x = Math.floor(FlxG.mouse.x / GRID_SIZE) * GRID_SIZE;
+				dummyArrow.x = Math.floor(touch.x / GRID_SIZE) * GRID_SIZE;
 				if (virtualPad.buttonY.pressed || FlxG.keys.pressed.SHIFT)
 					dummyArrow.y = touch.y;
 				else
