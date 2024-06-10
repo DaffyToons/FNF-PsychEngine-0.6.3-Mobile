@@ -1626,7 +1626,7 @@ class ChartingState extends MusicBeatState
 							}
 					});
 				}
-				else
+				else if (!virtualPad.buttonF.pressed)
 				{
 					if (touch.x > gridBG.x
 						&& touch.x < gridBG.x + gridBG.width
