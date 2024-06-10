@@ -338,13 +338,6 @@ class ChartingState extends MusicBeatState
 		UI_box.y = 25;
 		UI_box.scrollFactor.set();
 
-		/**
-		 * MTODO
-		 * G
-		 * F
-		 * Up/Down (Right Side)
-		 */
-
 		text = (mobile.MobileControls.enabled) ? 
 		"Up/Down - Change Conductor's strum time
 		\nLeft/Right - Go to the previous/next section
