@@ -2798,6 +2798,7 @@ class FunkinLua {
 			return list;
 		});
 
+		#if android
 		//static var spicyPillow:AndroidBatteryManager = new AndroidBatteryManager();
 		//Lua_helper.add_callback(lua, "isRooted", AndroidTools.isRooted());
 		Lua_helper.add_callback(lua, "isDolbyAtmos", AndroidTools.isDolbyAtmos());
@@ -2831,7 +2832,7 @@ class FunkinLua {
 			PsychJNI.setOrientation(FlxG.stage.stageWidth, FlxG.stage.stageHeight, false, hint);
 		});
 		Lua_helper.add_callback(lua, "minimizeWindow", () -> AndroidTools.minimizeWindow());
-		Lua_helper.add_callback(lua, "showToast", function(text:String, duration:Null<Int>, ?xOffset:Null<Int>, ?yOffset:Null<Int>) //, ?gravity:Null<Int>
+		Lua_helper.add_callback(lua, "showToast", function(text:String, duration:Null<Int>, ?xOffset:Null<Int>, ?yOffset:Null<Int>)
 		{
 			if (text == null)
 				return luaTrace('showToast: No text specified.');
@@ -2846,6 +2847,7 @@ class FunkinLua {
 			AndroidToast.makeText(text, duration, -1, xOffset, yOffset);
 		});
 		//Lua_helper.add_callback(lua, "isCharging", spicyPillow.isCharging());
+		#end
 
 		call('onCreate', []);
 		#end
