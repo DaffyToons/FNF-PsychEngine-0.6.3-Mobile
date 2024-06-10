@@ -68,6 +68,7 @@ class FlxVirtualPad extends FlxSpriteGroup
 	public var buttonC:FlxButton = new FlxButton(0, 0);
 	public var buttonD:FlxButton = new FlxButton(0, 0);
 	public var buttonE:FlxButton = new FlxButton(0, 0);
+	public var buttonF:FlxButton = new FlxButton(0, 0);
 	public var buttonG:FlxButton = new FlxButton(0, 0);
 	public var buttonV:FlxButton = new FlxButton(0, 0);
 	public var buttonX:FlxButton = new FlxButton(0, 0);
@@ -178,6 +179,10 @@ class FlxVirtualPad extends FlxSpriteGroup
 				add(buttonZ = createButton(FlxG.width - 132, FlxG.height - 251, 'z', 0xCCB98E));
 				add(buttonA = createButton(FlxG.width - 132, FlxG.height - 131, 'a', 0xFF0000));
 			case CHART_EDITOR:
+				add(buttonUp2 = createButton(FlxG.width - 652, FlxG.height - 251, 'up', 0x00FF00));
+				add(buttonDown2 = createButton(FlxG.width - 652, FlxG.height - 131, 'down', 0x00FFFF));
+				add(buttonF = createButton(FlxG.width - 132, FlxG.height - 371, 'f', 0xB1FC00));
+				add(buttonG = createButton(FlxG.width - 262, FlxG.height - 371, 'g', 0x3D3722));
 				add(buttonV = createButton(FlxG.width - 522, FlxG.height - 251, 'v', 0x49A9B2));
 				add(buttonD = createButton(FlxG.width - 522, FlxG.height - 131, 'd', 0x0078FF));
 				add(buttonX = createButton(FlxG.width - 392, FlxG.height - 251, 'x', 0x99062D));

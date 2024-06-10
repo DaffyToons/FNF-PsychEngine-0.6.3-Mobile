@@ -350,7 +350,7 @@ class ChartingState extends MusicBeatState
 		\nLeft/Right - Go to the previous/next section
 		\nG - Reset Song Playback Rate
 		\nHold Y to move 4x faster
-        \nHold F and touch on an arrow to select it
+		\nHold F and touch on an arrow to select it
 		\nZ/D - Zoom in/out
 		\n
 		\nC - Test your chart inside Chart Editor
@@ -1607,17 +1607,30 @@ class ChartingState extends MusicBeatState
 				dummyArrow.visible = false;
 			}
 
-			if (touch.justReleased)
+			if (touch.justPressed)
 			{
 				if (touch.overlaps(curRenderedNotes))
 				{
 					curRenderedNotes.forEachAlive(function(note:Note)
 					{
 						if (touch.overlaps(note))
-						{
-							//trace('tryin to delete note...');
-							deleteNote(note);
-						}
+							{
+								if (virtualPad.buttonF.pressed)
+								{
+									selectNote(note);
+								}
+								else if (FlxG.keys.pressed.ALT)
+								{
+									selectNote(note);
+									curSelectedNote[3] = noteTypeIntMap.get(currentType);
+									updateGrid();
+								}
+								else
+								{
+									//trace('tryin to delete note...');
+									deleteNote(note);
+								}
+							}
 					});
 				}
 				else
@@ -1752,11 +1765,11 @@ class ChartingState extends MusicBeatState
 			}
 
 			if(curSelectedNote != null && curSelectedNote[1] > -1) {
-				if (FlxG.keys.justPressed.E)
+				if (virtualPad.buttonDown2.justPressed || FlxG.keys.justPressed.E)
 				{
 					changeNoteSustain(Conductor.stepCrochet);
 				}
-				if (FlxG.keys.justPressed.Q)
+				if (virtualPad.buttonUp2.justPressed || FlxG.keys.justPressed.Q)
 				{
 					changeNoteSustain(-Conductor.stepCrochet);
 				}
@@ -2051,7 +2064,7 @@ class ChartingState extends MusicBeatState
 			playbackSpeed -= 0.01;
 		if (!holdingShift && pressedRB || holdingShift && holdingRB)
 			playbackSpeed += 0.01;
-		if (FlxG.keys.pressed.ALT && (pressedLB || pressedRB || holdingLB || holdingRB))
+		if ((virtualPad.buttonG.justPressed || FlxG.keys.pressed.ALT) && (pressedLB || pressedRB || holdingLB || holdingRB))
 			playbackSpeed = 1;
 		//
 
