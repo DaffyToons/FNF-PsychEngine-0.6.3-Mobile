@@ -17,7 +17,7 @@ import flixel.util.FlxColor;
 #if sys
 import sys.FileSystem;
 import sys.io.File;
-#else
+#elseif js
 import js.html.FileSystem;
 import js.html.File;
 #end

@@ -2812,24 +2812,24 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "menuJustPressed", FlxG.android.justPressed.MENU);
 		Lua_helper.add_callback(lua, "menuPressed", FlxG.android.pressed.MENU);
 		Lua_helper.add_callback(lua, "menuJustReleased", FlxG.android.justReleased.MENU);
-		Lua_helper.add_callback(lua, "setOrientation", function(hint:Null<String>):Void
+		Lua_helper.add_callback(lua, "setOrientation", function(orientation:Null<String>):Void
 		{
-			switch (hint.toLowerCase())
+			switch (orientation.toLowerCase())
 			{
 				case 'portrait':
-					hint = 'Portrait';
+					orientation = 'Portrait';
 				case 'portraitupsidedown' | 'upsidedownportrait' | 'upsidedown':
-					hint = 'PortraitUpsideDown';
+					orientation = 'PortraitUpsideDown';
 				case 'landscapeleft' | 'leftlandscape':
-					hint = 'LandscapeLeft';
+					orientation = 'LandscapeLeft';
 				case 'landscaperight' | 'rightlandscape' | 'landscape':
-					hint = 'LandscapeRight';
+					orientation = 'LandscapeRight';
 				default:
-					hint = null;
+					orientation = null;
 			}
-			if (hint == null)
+			if (orientation == null)
 				return luaTrace('setOrientation: No orientation specified.');
-			PsychJNI.setOrientation(FlxG.stage.stageWidth, FlxG.stage.stageHeight, false, hint);
+			PsychJNI.setOrientation(FlxG.stage.stageWidth, FlxG.stage.stageHeight, false, orientation);
 		});
 		Lua_helper.add_callback(lua, "minimizeWindow", () -> AndroidTools.minimizeWindow());
 		Lua_helper.add_callback(lua, "showToast", function(text:String, duration:Null<Int>, ?xOffset:Null<Int>, ?yOffset:Null<Int>)
