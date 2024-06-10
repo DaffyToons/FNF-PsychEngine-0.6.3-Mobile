@@ -23,8 +23,15 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		title = 'Mobile Options';
 		rpcTitle = 'Mobile Options Menu'; // for Discord Rich Presence, fuck it
 
+		var option:Option = new Option('Extra Controls',
+		'If checked, extra ${MobileControls.mode == "Hitbox" ? 'hint' : 'button'} to simulate pressing the space bar will be enabled.',
+		'mobileCEx',
+		'bool',
+		false);
+		addOption(option);
+
 		var option:Option = new Option('Mobile Controls Opacity',
-		'Selects the opacity for the mobile buttons (carefull not to put it at 0 and loose track of your buttons).',
+		'Selects the opacity for the mobile buttons (be careful not to put it at 0 and lose track of your buttons).',
 		'mobileCAlpha',
 		'percent',
 		null);
@@ -51,10 +58,10 @@ class MobileOptionsSubState extends BaseOptionsMenu
 
 		#if mobile
 		var option:Option = new Option('Allow Phone Screensaver',
-		'If checked, the phone will sleep after going inactive for few seconds.\n(The time depends on your phone\'s options)',
+		'If checked, the phone will go sleep after going inactive for few seconds.\n(The time depends on your phone\'s options)',
 		'screensaver',
 		'bool',
-        false);
+		false);
 		option.onChange = () -> lime.system.System.allowScreenTimeout = curOption.getValue();
 		addOption(option);
 		#end
@@ -68,6 +75,13 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			null,
 			hintOptions);
 			addOption(option);
+
+			var option:Option = new Option('Hitbox Position',
+			'If checked, the hitbox will be put at the bottom of the screen, otherwise will stay at the top.',
+			'hitboxPos',
+			'bool',
+			true);
+			addOption(option);
 		}
 
 		#if android
@@ -75,7 +89,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 			'Which folder Psych Engine should use?\n(CHANGING THIS MAKES DELETE YOUR OLD FOLDER!!)',
 			'storageType',
 			'string',
-            null,
+			null,
 			storageTypes);
 			addOption(option);
 		#end

@@ -344,7 +344,7 @@ class ChartingState extends MusicBeatState
 		\nG - Reset Song Playback Rate
 		\nHold Y to move 4x faster
 		\nHold F and touch on an arrow to select it
-		\nZ/D - Zoom in/out
+		\nV/D - Zoom in/out
 		\n
 		\nC - Test your chart inside Chart Editor
 		\nA - Play your chart
@@ -1777,13 +1777,13 @@ class ChartingState extends MusicBeatState
 				return;
 			}
 
-			if(virtualPad.buttonV.justPressed || FlxG.keys.justPressed.Z && FlxG.keys.pressed.CONTROL) {
+			if(virtualPad.buttonZ.justPressed || (FlxG.keys.justPressed.Z && FlxG.keys.pressed.CONTROL)) {
 				undo();
 			}
 
 
 
-			if(virtualPad.buttonZ.justPressed || FlxG.keys.justPressed.Z && curZoom > 0 && !FlxG.keys.pressed.CONTROL) {
+			if(virtualPad.buttonV.justPressed || FlxG.keys.justPressed.Z && curZoom > 0 && !FlxG.keys.pressed.CONTROL) {
 				--curZoom;
 				updateZoom();
 			}
@@ -2057,7 +2057,7 @@ class ChartingState extends MusicBeatState
 			playbackSpeed -= 0.01;
 		if (!holdingShift && pressedRB || holdingShift && holdingRB)
 			playbackSpeed += 0.01;
-		if ((virtualPad.buttonG.justPressed || FlxG.keys.pressed.ALT) && (pressedLB || pressedRB || holdingLB || holdingRB))
+		if (virtualPad.buttonG.justPressed || (FlxG.keys.pressed.ALT && (pressedLB || pressedRB || holdingLB || holdingRB)))
 			playbackSpeed = 1;
 		//
 

@@ -5,6 +5,8 @@ import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxColor;
 import flixel.util.FlxDestroyUtil;
 import flixel.util.FlxSignal;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
 import mobile.flixel.FlxButton;
 import openfl.display.BitmapData;
 import openfl.display.Shape;
@@ -18,10 +20,10 @@ import openfl.geom.Matrix;
  */
 class FlxHitbox extends FlxSpriteGroup
 {
-	public var hints(default, null):Array<FlxButton>;
+	final offsetFir:Int = (ClientPrefs.hitboxPos ? Std.int(FlxG.height / 4) * 3 : 0);
+	final offsetSec:Int = (ClientPrefs.hitboxPos ? 0 : Std.int(FlxG.height / 4));
 
-	public var onHintUp:FlxTypedSignal<FlxButton->Void> = new FlxTypedSignal<FlxButton->Void>();
-	public var onHintDown:FlxTypedSignal<FlxButton->Void> = new FlxTypedSignal<FlxButton->Void>();
+	public var hints(default, null):Array<FlxButton>;
 
 	/**
 	 * Create the zone.
@@ -41,7 +43,11 @@ class FlxHitbox extends FlxSpriteGroup
 			colors = [0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF];
 
 		for (i in 0...ammo)
-			add(hints[i] = createHint(i * perHintWidth, 0, perHintWidth, perHintHeight, colors[i]));
+			add(hints[i] = createHint(i * perHintWidth, (ClientPrefs.mobileCEx) ? offsetSec : 0, perHintWidth,
+				(ClientPrefs.mobileCEx) ? Std.int(FlxG.height / ammo) * 3 : perHintHeight, colors[i]));
+
+		if (ClientPrefs.mobileCEx)
+			add(hints[4] = createHint(0, offsetFir, FlxG.width, Std.int(FlxG.height / 4), 0xFF0066FF));
 
 		scrollFactor.set();
 	}
@@ -61,7 +67,9 @@ class FlxHitbox extends FlxSpriteGroup
 
 	private function createHint(X:Float, Y:Float, Width:Int, Height:Int, Color:Int = 0xFFFFFF):FlxButton
 	{
+		final guh2:Float = 0.00001;
 		final guh:Float = ClientPrefs.mobileCAlpha >= 0.9 ? ClientPrefs.mobileCAlpha - 0.2 : ClientPrefs.mobileCAlpha;
+		var hintTween:FlxTween = null;
 		var hint:FlxButton = new FlxButton(X, Y);
 		hint.loadGraphic(createHintGraphic(Width, Height, Color));
 		hint.solid = false;
@@ -70,23 +78,23 @@ class FlxHitbox extends FlxSpriteGroup
 		hint.moves = false;
 		hint.antialiasing = ClientPrefs.globalAntialiasing;
 		hint.scrollFactor.set();
-		hint.alpha = 0.00001;
-		hint.onDown.callback = hint.onOver.callback = function()
+		hint.alpha = guh2;
+		if (ClientPrefs.hitboxType != "Hidden")
 		{
-			onHintDown.dispatch(hint);
-			if (ClientPrefs.hitboxType != "Hidden")
+			hint.onDown.callback = function()
 			{
 				if (hint.alpha != guh)
 					hint.alpha = guh;
 			}
-		}
-		hint.onUp.callback = hint.onOut.callback = function()
-		{
-			onHintUp.dispatch(hint);
-			if (ClientPrefs.hitboxType != "Hidden")
+			hint.onUp.callback = function()
 			{
-				if (hint.alpha != 0.00001)
-					hint.alpha = 0.00001;
+				if (hint.alpha != guh2)
+					hint.alpha = guh2;
+			}
+			hint.onOut.callback = function()
+			{
+				if (hint.alpha != guh2)
+					hint.alpha = guh2;
 			}
 		}
 		#if FLX_DEBUG

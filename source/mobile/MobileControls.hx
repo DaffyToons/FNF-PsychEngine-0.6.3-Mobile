@@ -21,9 +21,6 @@ class MobileControls extends FlxSpriteGroup
 	public var virtualPad:FlxVirtualPad;
 	public var hitbox:FlxHitbox;
 
-	public var onInputUp:FlxTypedSignal<FlxButton->Void> = new FlxTypedSignal<FlxButton->Void>();
-	public var onInputDown:FlxTypedSignal<FlxButton->Void> = new FlxTypedSignal<FlxButton->Void>();
-
 	public function new()
 	{
 		super();
@@ -32,28 +29,18 @@ class MobileControls extends FlxSpriteGroup
 		{
 			case 'Pad-Right':
 				virtualPad = new FlxVirtualPad(RIGHT_FULL, NONE);
-				virtualPad.onButtonUp.add(onInputUp.dispatch);
-				virtualPad.onButtonDown.add(onInputDown.dispatch);
 				add(virtualPad);
 			case 'Pad-Left':
 				virtualPad = new FlxVirtualPad(LEFT_FULL, NONE);
-				virtualPad.onButtonUp.add(onInputUp.dispatch);
-				virtualPad.onButtonDown.add(onInputDown.dispatch);
 				add(virtualPad);
 			case 'Pad-Custom':
 				virtualPad = MobileControls.customVirtualPad;
-				virtualPad.onButtonUp.add(onInputUp.dispatch);
-				virtualPad.onButtonDown.add(onInputDown.dispatch);
 				add(virtualPad);
 			case 'Pad-Duo':
 				virtualPad = new FlxVirtualPad(BOTH_FULL, NONE);
-				virtualPad.onButtonUp.add(onInputUp.dispatch);
-				virtualPad.onButtonDown.add(onInputDown.dispatch);
 				add(virtualPad);
 			case 'Hitbox':
 				hitbox = new FlxHitbox(4, Std.int(FlxG.width / 4), FlxG.height, [0xFF00FF, 0x00FFFF, 0x00FF00, 0xFF0000]);
-				hitbox.onHintUp.add(onInputUp.dispatch);
-				hitbox.onHintDown.add(onInputDown.dispatch);
 				add(hitbox);
 			case 'Keyboard': // do nothing
 		}

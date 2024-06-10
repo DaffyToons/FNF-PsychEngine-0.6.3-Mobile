@@ -62,7 +62,7 @@ class SUtil
 						FileSystem.createDirectory(total);
 				}
 				catch (e:haxe.Exception)
-					trace('Error while creating folder. (${e.message}');
+					trace('Error while creating folder. (${e.message})');
 			}
 		}
 	}

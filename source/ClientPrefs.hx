@@ -14,7 +14,9 @@ class ClientPrefs {
 	#end
 	#end
 	public static var mobileCAlpha:Float = FlxG.onMobile ? 0.6 : 0;
+	public static var mobileCEx:Bool = false;
 	public static var hitboxType:String = "No Gradient";
+	public static var hitboxPos:Bool = true;
 	public static var downScroll:Bool = false;
 	public static var middleScroll:Bool = false;
 	public static var opponentStrums:Bool = true;

@@ -2,12 +2,10 @@ package mobile.flixel;
 
 import flixel.FlxG;
 import flixel.graphics.FlxGraphic;
-import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.graphics.frames.FlxTileFrames;
 import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxPoint;
 import flixel.util.FlxDestroyUtil;
-import flixel.util.FlxSignal;
 import mobile.flixel.FlxButton;
 import openfl.display.BitmapData;
 import openfl.utils.Assets;
@@ -75,8 +73,8 @@ class FlxVirtualPad extends FlxSpriteGroup
 	public var buttonY:FlxButton = new FlxButton(0, 0);
 	public var buttonZ:FlxButton = new FlxButton(0, 0);
 
-	public var onButtonUp:FlxTypedSignal<FlxButton->Void> = new FlxTypedSignal<FlxButton->Void>();
-	public var onButtonDown:FlxTypedSignal<FlxButton->Void> = new FlxTypedSignal<FlxButton->Void>();
+	public var buttonEx:FlxButton = new FlxButton(0, 0);
+	// MTODO: MAKE BUTTONEX ADDED
 
 	/**
 	 * Create a gamepad.
@@ -106,6 +104,7 @@ class FlxVirtualPad extends FlxSpriteGroup
 				add(buttonLeft = createButton(FlxG.width - 384, FlxG.height - 305, 'left', 0xFF00FF));
 				add(buttonRight = createButton(FlxG.width - 132, FlxG.height - 305, 'right', 0xFF0000));
 				add(buttonDown = createButton(FlxG.width - 258, FlxG.height - 197, 'down', 0x00FFFF));
+				if (ClientPrefs.mobileCEx) add(buttonEx = createButton(0, 0, 'g', 0x3D3722));
 			case BOTH_FULL:
 				add(buttonUp = createButton(105, FlxG.height - 356, 'up', 0x00FF00));
 				add(buttonLeft = createButton(0, FlxG.height - 246, 'left', 0xFF00FF));
@@ -252,8 +251,6 @@ class FlxVirtualPad extends FlxSpriteGroup
 		button.color = Color;
 		button.antialiasing = ClientPrefs.globalAntialiasing;
 		button.alpha = ClientPrefs.mobileCAlpha;
-		button.onDown.callback = button.onOver.callback = () -> onButtonDown.dispatch(button);
-		button.onUp.callback = button.onOut.callback = () -> onButtonUp.dispatch(button);
 		#if FLX_DEBUG
 		button.ignoreDrawDebug = true;
 		#end
