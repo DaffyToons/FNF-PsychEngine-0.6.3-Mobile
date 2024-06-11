@@ -17,7 +17,7 @@ import openfl.utils.Assets;
 
 class MobileControlsSelectSubState extends FlxSubState
 {
-	private final controlsItems:Array<String> = ['Pad-Right', 'Pad-Left', 'Pad-Custom', 'Pad-Duo', 'Hitbox', 'Keyboard'];
+	private final controlsItems:Array<String> = ['Pad-Right', 'Pad-Left', 'Pad-Custom', 'Hitbox', 'Keyboard'];
 
 	private var virtualPad:FlxVirtualPad;
 	private var hitbox:FlxHitbox;
@@ -25,6 +25,7 @@ class MobileControlsSelectSubState extends FlxSubState
 	private var downPosition:FlxText;
 	private var leftPosition:FlxText;
 	private var rightPosition:FlxText;
+	private var exPosition:FlxText;
 	private var grpControls:FlxText;
 	private var funitext:FlxText;
 	private var leftArrow:FlxSprite;
@@ -65,7 +66,7 @@ class MobileControlsSelectSubState extends FlxSubState
 		{
 			if (controlsItems[Math.floor(curSelected)] == 'Pad-Custom' && resetButton.visible) // being sure about something
 			{
-				MobileControls.customVirtualPad = new FlxVirtualPad(RIGHT_FULL, NONE);
+				MobileControls.customVirtualPad = new FlxVirtualPad(RIGHT_FULL, NONE, ClientPrefs.mobileCEx);
 				reloadMobileControls('Pad-Custom');
 			}
 		});
@@ -126,6 +127,12 @@ class MobileControlsSelectSubState extends FlxSubState
 		upPosition.borderQuality = 1;
 		add(upPosition);
 
+		exPosition = new FlxText(10, FlxG.height - 104, 0, '', 16);
+		exPosition.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK, true);
+		exPosition.borderSize = 3;
+		exPosition.borderQuality = 1;
+		add(exPosition);
+
 		changeSelection();
 
 		super.create();
@@ -164,6 +171,8 @@ class MobileControlsSelectSubState extends FlxSubState
 						moveButton(touch, virtualPad.buttonRight);
 					else if (virtualPad.buttonLeft.justPressed)
 						moveButton(touch, virtualPad.buttonLeft);
+					else if (virtualPad.buttonEx.justPressed)
+						moveButton(touch, virtualPad.buttonEx);
 				}
 			}
 		}
@@ -181,6 +190,9 @@ class MobileControlsSelectSubState extends FlxSubState
 
 			if (virtualPad.buttonRight != null)
 				rightPosition.text = 'Button Right X:' + virtualPad.buttonRight.x + ' Y:' + virtualPad.buttonRight.y;
+
+			if (virtualPad.buttonEx != null)
+				exPosition.text = 'Button Extra X:' + virtualPad.buttonEx.x + ' Y:' + virtualPad.buttonEx.y;
 		}
 	}
 
@@ -209,6 +221,7 @@ class MobileControlsSelectSubState extends FlxSubState
 		downPosition.visible = daChoice == 'Pad-Custom';
 		leftPosition.visible = daChoice == 'Pad-Custom';
 		rightPosition.visible = daChoice == 'Pad-Custom';
+		exPosition.visible = daChoice == 'Pad-Custom';
 	}
 
 	private function moveButton(touch:FlxTouch, button:FlxButton):Void
@@ -227,19 +240,15 @@ class MobileControlsSelectSubState extends FlxSubState
 		{
 			case 'Pad-Right':
 				removeControls();
-				virtualPad = new FlxVirtualPad(RIGHT_FULL, NONE);
+				virtualPad = new FlxVirtualPad(RIGHT_FULL, NONE, ClientPrefs.mobileCEx);
 				add(virtualPad);
 			case 'Pad-Left':
 				removeControls();
-				virtualPad = new FlxVirtualPad(LEFT_FULL, NONE);
+				virtualPad = new FlxVirtualPad(LEFT_FULL, NONE, ClientPrefs.mobileCEx);
 				add(virtualPad);
 			case 'Pad-Custom':
 				removeControls();
 				virtualPad = MobileControls.customVirtualPad;
-				add(virtualPad);
-			case 'Pad-Duo':
-				removeControls();
-				virtualPad = new FlxVirtualPad(BOTH_FULL, NONE);
 				add(virtualPad);
 			case 'Hitbox':
 				removeControls();

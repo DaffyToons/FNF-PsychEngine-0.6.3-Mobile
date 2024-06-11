@@ -74,7 +74,6 @@ class FlxVirtualPad extends FlxSpriteGroup
 	public var buttonZ:FlxButton = new FlxButton(0, 0);
 
 	public var buttonEx:FlxButton = new FlxButton(0, 0);
-	// MTODO: MAKE BUTTONEX ADDED
 
 	/**
 	 * Create a gamepad.
@@ -82,7 +81,7 @@ class FlxVirtualPad extends FlxSpriteGroup
 	 * @param   DPadMode     The D-Pad mode. `LEFT_FULL` for example.
 	 * @param   ActionMode   The action buttons mode. `A_B_C` for example.
 	 */
-	public function new(DPad:FlxDPadMode, Action:FlxActionMode):Void
+	public function new(DPad:FlxDPadMode, Action:FlxActionMode, ?Extra:Bool = false):Void
 	{
 		super();
 
@@ -104,7 +103,6 @@ class FlxVirtualPad extends FlxSpriteGroup
 				add(buttonLeft = createButton(FlxG.width - 384, FlxG.height - 305, 'left', 0xFF00FF));
 				add(buttonRight = createButton(FlxG.width - 132, FlxG.height - 305, 'right', 0xFF0000));
 				add(buttonDown = createButton(FlxG.width - 258, FlxG.height - 197, 'down', 0x00FFFF));
-				if (ClientPrefs.mobileCEx) add(buttonEx = createButton(0, 0, 'g', 0x3D3722));
 			case BOTH_FULL:
 				add(buttonUp = createButton(105, FlxG.height - 356, 'up', 0x00FF00));
 				add(buttonLeft = createButton(0, FlxG.height - 246, 'left', 0xFF00FF));
@@ -213,6 +211,8 @@ class FlxVirtualPad extends FlxSpriteGroup
 				add(buttonA = createButton(FlxG.width - 132, 4, 'a', 0xFF0000));
 			case NONE: // do nothing
 		}
+
+		if (Extra) add(buttonEx = createButton((DPad == LEFT_FULL) ? 1149 : 0, 589, 'g', 0x3D3722));
 
 		scrollFactor.set();
 	}
