@@ -64,7 +64,7 @@ class MobileControlsSelectSubState extends FlxSubState
 
 		resetButton = new FlxButton(exitButton.x, exitButton.y + 100, 'Reset', function()
 		{
-			if (controlsItems[Math.floor(curSelected)] == 'Pad-Custom' && resetButton.visible) // being sure about something
+			if (controlsItems[Math.floor(curSelected)] == 'Pad-Custom' && resetButton.visible)
 			{
 				MobileControls.customVirtualPad = new FlxVirtualPad(RIGHT_FULL, NONE, ClientPrefs.mobileCEx);
 				reloadMobileControls('Pad-Custom');
@@ -163,17 +163,44 @@ class MobileControlsSelectSubState extends FlxSubState
 				}
 				else
 				{
-					if (virtualPad.buttonUp.justPressed)
-						moveButton(touch, virtualPad.buttonUp);
-					else if (virtualPad.buttonDown.justPressed)
-						moveButton(touch, virtualPad.buttonDown);
-					else if (virtualPad.buttonRight.justPressed)
-						moveButton(touch, virtualPad.buttonRight);
-					else if (virtualPad.buttonLeft.justPressed)
-						moveButton(touch, virtualPad.buttonLeft);
-					else if (virtualPad.buttonEx.justPressed)
-						moveButton(touch, virtualPad.buttonEx);
+					virtualPad.forEachAlive((button:FlxButton) ->
+					{
+						if (button.justPressed)
+							moveButton(touch, button);
+					});
 				}
+				virtualPad.forEachAlive((button:FlxButton) ->
+				{
+					if (button != bindButton && buttonBinded)
+					{
+						bindButton.centerBounds();
+						button.bounds.immovable = true;
+						bindButton.bounds.immovable = false;
+						button.centerBounds();
+						FlxG.overlap(bindButton.bounds, button.bounds, function(a:Dynamic, b:Dynamic)
+						{
+							bindButton.centerInBounds();
+							button.centerBounds();
+							bindButton.bounds.immovable = true;
+							button.bounds.immovable = false;
+						}, function(a:Dynamic, b:Dynamic)
+						{
+							if (!bindButton.bounds.immovable)
+							{
+								if (bindButton.bounds.x > button.bounds.x)
+									bindButton.bounds.x = button.bounds.x + 100;
+								else
+									bindButton.bounds.x = button.bounds.x - 100;
+
+								if (bindButton.bounds.y > button.bounds.y)
+									bindButton.bounds.y = button.bounds.y + 55;
+								else if (bindButton.bounds.y != button.bounds.y)
+									bindButton.bounds.y = button.bounds.y - 55;
+							}
+							return true;
+						});
+					}
+				});
 			}
 		}
 
