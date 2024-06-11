@@ -25,6 +25,10 @@ import lime.system.System as LimeSystem;
 	The FPS class provides an easy-to-use monitor to display
 	the current frame rate of an OpenFL project
 **/
+#if !openfl_debug
+@:fileXml('tags="haxe,release"')
+@:noDebug
+#end
 #if cpp
 #if windows
 @:cppFileCode('#include <windows.h>')
@@ -33,10 +37,6 @@ import lime.system.System as LimeSystem;
 #else
 @:headerInclude('sys/utsname.h')
 #end
-#end
-#if !openfl_debug
-@:fileXml('tags="haxe,release"')
-@:noDebug
 #end
 class FPS extends TextField
 {
@@ -54,10 +54,7 @@ class FPS extends TextField
 	{
 		super();
 
-		if (LimeSystem.platformName == LimeSystem.platformVersion || LimeSystem.platformVersion == null)
-			os = '\nOS: ${LimeSystem.platformName}' #if cpp + ' ${getArch()}' #end;
-		else
-			os = '\nOS: ${LimeSystem.platformName}' #if cpp + ' ${getArch()}' #end + ' - ${LimeSystem.platformVersion}';
+		os = '\nOS: ${LimeSystem.platformName} ${getArch() != 'Unknown' ? getArch() : ''} ${(LimeSystem.platformName == LimeSystem.platformVersion || LimeSystem.platformVersion == null) ? '' : '- ' + LimeSystem.platformVersion}';
 
 		this.x = x;
 		this.y = y;
@@ -129,7 +126,6 @@ class FPS extends TextField
 		cacheCount = currentCount;
 	}
 
-	#if cpp
 	#if windows
 	@:functionCode('
 		SYSTEM_INFO osInfo;
@@ -157,7 +153,7 @@ class FPS extends TextField
 		const NXArchInfo *archInfo = NXGetLocalArchInfo();
     	return ::String(archInfo == NULL ? "Unknown" : archInfo->name);
 	')
-	#else
+	#elseif cpp
 	@:functionCode('
 		struct utsname osInfo{};
 		uname(&osInfo);
@@ -169,5 +165,4 @@ class FPS extends TextField
 	{
 		return "Unknown";
 	}
-	#end
 }
