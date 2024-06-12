@@ -2798,7 +2798,7 @@ class FunkinLua {
 			return list;
 		});
 
-		Lua_helper.add_callback(lua, 'mobileControlsMode', () -> return switch (MobileControls.mode)
+		Lua_helper.add_callback(lua, 'getMobileControlsMode', () -> return switch (MobileControls.mode)
 		{
 			case 'Pad-Right':
 				return 'left';
