@@ -1,4 +1,4 @@
-# Friday Night Funkin' - Psych Engine
+# Friday Night Funkin' - Psych Engine Mobile
 Engine originally used on [Mind Games Mod](https://gamebanana.com/mods/301107), intended to be a fix for the vanilla version's many issues while keeping the casual play aspect of it. Also aiming to be an easier alternative to newbie coders.
 
 ## Installation:
@@ -16,6 +16,12 @@ If you get an error about StatePointer when using Lua, run `haxelib remove linc_
 If you want video support on your mod, simply do `haxelib install hxCodec` on a Command prompt/PowerShell
 
 otherwise, you can delete the "VIDEOS_ALLOWED" Line on Project.xml
+
+## Mobile Credits:
+* Lily - Head Porter
+
+## Mobile Special Thanks
+* Mihai Alexandru - Author of mobile controls and also his new storage stuff and FlxRuntimeShader is used here
 
 ## Credits:
 * Shadow Mario - Programmer
