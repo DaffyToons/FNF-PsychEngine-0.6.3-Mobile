@@ -8,8 +8,9 @@
     },
     {
       "name": "extension-androidtools",
-      "type": "haxelib",
-      "version": "2.0.3"
+      "type": "git",
+      "ref": "main",
+      "url": "https://github.com/PsychPorting/extension-androidtools-0.6.3"
     },
     {
       "name": "flixel",
