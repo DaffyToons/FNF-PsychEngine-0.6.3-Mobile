@@ -2798,7 +2798,7 @@ class FunkinLua {
 			return list;
 		});
 
-		Lua_helper.add_callback(lua, 'getMobileControlsMode', () -> return switch (MobileControls.mode)
+		Lua_helper.add_callback(lua, 'getMobileControlsMode', () -> return switch (mobile.MobileControls.mode)
 		{
 			case 'Pad-Right':
 				return 'left';
@@ -2815,10 +2815,10 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "vibrate", (duration:Null<Int>, ?period:Null<Int>) ->
 		{
 			if (duration == null)
-				return FunkinLua.luaTrace('vibrate: No duration specified.');
+				return luaTrace('vibrate: No duration specified.');
 			else if (period == null)
 				period = 0;
-			return Haptic.vibrate(period, duration);
+			return lime.ui.Haptic.vibrate(period, duration);
 		});
 
 		#if android
