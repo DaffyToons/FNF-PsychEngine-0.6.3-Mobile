@@ -39,9 +39,8 @@
     },
     {
       "name": "hxcpp",
-      "type": "git",
-      "ref": "master",
-      "url": "https://github.com/mcagabe19-stuff/hxcpp.git"
+      "type": "haxelib",
+      "version": "4.2.1"
     },
     {
       "name": "lime",
