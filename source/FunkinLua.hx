@@ -2798,6 +2798,29 @@ class FunkinLua {
 			return list;
 		});
 
+		Lua_helper.add_callback(lua, 'mobileControlsMode', () -> return switch (MobileControls.mode)
+		{
+			case 'Pad-Right':
+				return 'left';
+			case 'Pad-Right':
+				return 'right';
+			case 'Pad-Custom':
+				return 'custom';
+			case 'Hitbox':
+				return 'hitbox';
+			default:
+				return 'none';
+		});
+
+		Lua_helper.add_callback(lua, "vibrate", (duration:Null<Int>, ?period:Null<Int>) ->
+		{
+			if (duration == null)
+				return FunkinLua.luaTrace('vibrate: No duration specified.');
+			else if (period == null)
+				period = 0;
+			return Haptic.vibrate(period, duration);
+		});
+
 		#if android
 		//static var spicyPillow:AndroidBatteryManager = new AndroidBatteryManager();
 		//Lua_helper.add_callback(lua, "isRooted", AndroidTools.isRooted());
